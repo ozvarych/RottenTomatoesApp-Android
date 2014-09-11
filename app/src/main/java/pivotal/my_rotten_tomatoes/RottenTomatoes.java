@@ -29,7 +29,7 @@ public class RottenTomatoes extends Activity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.fragmentMovieList, new MovieFragment() )
+                    .add(R.id.container, new MovieFragment() )
                     .commit();
         }
     }

@@ -29,7 +29,7 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute(){
         // add a loading buffer to the screen while getting data
-        showProgressDialog();
+        //showProgressDialog();
     }
 
     @Override
@@ -70,14 +70,15 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(final String result) {
         // Remove loading icon
 
-        dismissProgressDialog();
+        //ProgressDialog _progressDialog = new ProgressDialog(getActivity());
+        //dismissProgressDialog();
 
         super.onPostExecute(result);
         //Do anything with response..
 
         Gson gson = new Gson();
         Movie movie = gson.fromJson(result.toString(), Movie.class);
-        Log.d("tag", result);
+        //Log.d("tag", result);
 
         //Toast toast = Toast.makeText(null, result.toString(), Toast.LENGTH_LONG );
         //toast.show();

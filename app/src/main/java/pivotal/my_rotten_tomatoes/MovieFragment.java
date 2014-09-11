@@ -42,32 +42,17 @@ public class MovieFragment extends Fragment {
         _country = country;
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        _requestURL = String.format("http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit={0}&page={1}&country={2}&apikey={3}",
-                _pageLimit, _pageRequest, _country, API_KEY );
-
-        // Get Movie List from Rotten Tomatoes
-        //new MovieRequestAsyncTask().execute(requestURL);
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MovieFragment(), "movie_fragment" )
-                    .commit();
-        }
-    }
-
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+        _requestURL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=" +
+                _pageLimit + "&page=" + _pageRequest + "&country=" + _country + " &apikey=" + API_KEY;
 
         _layoutInflater = inflater;
         View rootView =  _layoutInflater.inflate(R.layout.movie_fragment, container, false);
         _listView = (ListView)rootView.findViewById(R.id.lv_MoviesList);
 
-        ProgressDialog _progressDialog = new ProgressDialog(getActivity());
+        //ProgressDialog _progressDialog = new ProgressDialog(getActivity());
 
         // Get Movie List from Rotten Tomatoes
         new MovieRequestAsyncTask().execute(_requestURL);
