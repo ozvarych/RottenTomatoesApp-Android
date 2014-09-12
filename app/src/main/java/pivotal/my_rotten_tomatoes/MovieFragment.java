@@ -1,7 +1,9 @@
 package pivotal.my_rotten_tomatoes;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ public class MovieFragment extends Fragment {
     private String _pageLimit;
     private String _pageRequest;
     private String _country;
+    private Context _context;
 
     public MovieFragment (){
         _pageLimit = DEFAULT_PAGE_LIMIT;
@@ -45,8 +48,11 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
+        _context = getActivity();
+
         _requestURL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=" +
                 _pageLimit + "&page=" + _pageRequest + "&country=" + _country + "&apikey=" + API_KEY;
+
 
         _layoutInflater = inflater;
         View rootView =  _layoutInflater.inflate(R.layout.movie_fragment, container, false);
@@ -55,7 +61,7 @@ public class MovieFragment extends Fragment {
         //ProgressDialog _progressDialog = new ProgressDialog(getActivity());
 
         // Get Movie List from Rotten Tomatoes
-        MovieRequestAsyncTask movieRequestAsyncTask = new MovieRequestAsyncTask(_layoutInflater, _listView);
+        MovieRequestAsyncTask movieRequestAsyncTask = new MovieRequestAsyncTask(_layoutInflater, _listView, _context);
         movieRequestAsyncTask.execute(_requestURL);
 
         return rootView;

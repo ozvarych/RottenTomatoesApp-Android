@@ -1,6 +1,7 @@
 package pivotal.my_rotten_tomatoes;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,19 +30,21 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
     private LayoutInflater _layoutInflater;
     private List<Movie> _movies;
     private MovieResponse _movieResponse;
+    private Context _context;
 
     private ListView _movieListView;
 
 
-    public MovieRequestAsyncTask(LayoutInflater layoutInflater, ListView listView){
+    public MovieRequestAsyncTask(LayoutInflater layoutInflater, ListView listView, Context context){
         _layoutInflater = layoutInflater;
         _movieListView = listView;
+        _context = context;
     }
 
     @Override
     protected void onPreExecute(){
         // add a loading buffer to the screen while getting data
-        //showProgressDialog();
+        //showProgressDialog()
     }
 
     @Override
@@ -113,7 +116,7 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
     }*/
 
     private void setUpMovieAdapter(){
-        _movieAdapter = new MovieAdapter(_layoutInflater, _movieResponse.getMovies());
+        _movieAdapter = new MovieAdapter(_layoutInflater, _movieResponse.getMovies(), _context);
         _movieListView.setAdapter(_movieAdapter);
         _movieAdapter.notifyDataSetChanged();
     }
