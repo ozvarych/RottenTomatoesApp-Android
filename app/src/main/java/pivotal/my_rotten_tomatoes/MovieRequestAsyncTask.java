@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
+
 import com.google.gson.Gson;
 
 public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
@@ -25,6 +27,16 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
 
     private MovieAdapter _movieAdapter;
     private LayoutInflater _layoutInflater;
+    private List<Movie> _movies;
+    private MovieResponse _movieResponse;
+
+    private ListView _movieListView;
+
+
+    public MovieRequestAsyncTask(LayoutInflater layoutInflater, ListView listView){
+        _layoutInflater = layoutInflater;
+        _movieListView = listView;
+    }
 
     @Override
     protected void onPreExecute(){
@@ -37,7 +49,7 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
         HttpClient httpclient = new DefaultHttpClient();
         HttpResponse response;
         String responseString = null;
-
+        Log.d("This is uri", uri[0]);
         try {
             response = httpclient.execute(new HttpGet(uri[0]));
             StatusLine statusLine = response.getStatusLine();
@@ -73,17 +85,15 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
         //ProgressDialog _progressDialog = new ProgressDialog(getActivity());
         //dismissProgressDialog();
 
-        super.onPostExecute(result);
+        //super.onPostExecute(result);
         //Do anything with response..
 
         Gson gson = new Gson();
-        Movie movie = gson.fromJson(result.toString(), Movie.class);
+        _movieResponse = gson.fromJson(result.toString(), MovieResponse.class);
+        Log.d("This is my response: ", result);
+        setUpMovieAdapter();
+        //_movies = _movieResponse.getMovies();
         //Log.d("tag", result);
-
-        //Toast toast = Toast.makeText(null, result.toString(), Toast.LENGTH_LONG );
-        //toast.show();
-
-
     }
 
     private void showProgressDialog()
@@ -102,4 +112,9 @@ public class MovieRequestAsyncTask extends AsyncTask<String, Integer, String> {
         return _progressDialog.isShowing();
     }*/
 
+    private void setUpMovieAdapter(){
+        _movieAdapter = new MovieAdapter(_layoutInflater, _movieResponse.getMovies());
+        _movieListView.setAdapter(_movieAdapter);
+        _movieAdapter.notifyDataSetChanged();
+    }
 }

@@ -22,22 +22,18 @@ public class MovieAdapter extends BaseAdapter{
         _layoutInflater = layoutInflater;
         _movies = movies;
     }
-
     @Override
     public int getCount() {
         return _movies.size();
     }
-
     @Override
     public long getItemId(int i){
         return 0;
     }
-
     @Override
     public Object getItem(int i){
         return _movies.get(i);
     }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
