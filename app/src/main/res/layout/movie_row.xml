@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></TableLayout>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/movie_image"/>
+        android:id="@+id/movie_image"
+        android:maxHeight="100dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movie_title"
-        android:layout_gravity="top"/>
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movie_year"
-        android:layout_gravity="top"/>
+        android:layout_toLeftOf="@+id/movie_rating"
+        android:layout_below="@+id/movie_title"
+        android:textSize="16sp"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movie_rating"
-        android:layout_gravity="top"/>
+        android:layout_below="@+id/movie_title"
+        android:textSize="16sp"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movie_runtime"
-        android:layout_gravity="top"/>
+        android:layout_toLeftOf="@+id/movie_rating"
+        android:layout_below="@+id/movie_title"
+        android:textSize="16sp"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movie_release_date"
-        android:layout_gravity="top"/>
+        android:layout_toLeftOf="@+id/movie_runtime"
+        android:layout_below="@+id/movie_title"
+        android:textSize="16sp"/>
 
-</LinearLayout>
+</RelativeLayout>
