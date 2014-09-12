@@ -44,7 +44,7 @@ public class MovieAdapter extends BaseAdapter{
         for(int i = 0; i < size; i++)
         {
             Movie movie = getItem(i);
-            Picasso.with(_context).load(movie.getPosters().getProfile()).fetch();
+            Picasso.with(_context).load(movie.getPosters().getProfile()).resize(150, 200).centerCrop().fetch();
         }
     }
 
@@ -70,9 +70,9 @@ public class MovieAdapter extends BaseAdapter{
         Movie movie = _movies.get(i);
         movieHolder.movieTitle.setText(movie.getTitle());
         movieHolder.movieYear.setText(movie.getYear());
-        movieHolder.movieRating.setText(movie.getMpaa_rating());
-        movieHolder.movieRuntime.setText(movie.getRuntime());
-        Picasso.with(_context).load(movie.getPosters().getProfile()).into(movieHolder.movieImage );
+        movieHolder.movieRating.setText("Rated: " + movie.getMpaa_rating());
+        movieHolder.movieRuntime.setText(movie.getRuntime() + " min");
+        Picasso.with(_context).load(movie.getPosters().getProfile()).resize(150, 200).centerCrop().into(movieHolder.movieImage );
         //movieHolder.movieImage(movie.getPosters());
 
         return view;
